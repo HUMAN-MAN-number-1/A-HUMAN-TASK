@@ -4,18 +4,23 @@ class GameObj:
         self.name = name
         self.hp = hp
         self.coords = coords
-        self.speed = speed
         self.zaxis = zaxis
         self.modifiers = modifiers
 
+
     def __str__(self):
-        return f"unit type:{self.unit_type} name:{self.name} hp:{self.hp} coords:{self.coords} speed:{self.speed} zaxis:{self.zaxis} modifiers:{self.modifiers}"
+        return f"unit type:{self.unit_type} name:{self.name} hp:{self.hp} coords:{self.coords} zaxis:{self.zaxis} modifiers:{self.modifiers}"
+
 
 class Settings:
     grid_size = 100
+    fps = 60
+    base_speed = 1 * grid_size / fps
     melee_distance = 1 * grid_size
     short_range_distance = 2 * grid_size
     long_range_distance = 3 * grid_size
+
+
 
 class AttackDistance:
     MELEE = 1
@@ -24,7 +29,7 @@ class AttackDistance:
 
 
 class DangerousObj:
-    def __init__(self,dmg,pulse):
+    def __init__(self, dmg, pulse):
         self.dmg = dmg
         self.pulse = pulse
 
@@ -54,15 +59,21 @@ class DangerousObj:
         return distance <= attack_distance
 
 
+class MovableObj:
+    def __init__(self, speed):
+        self.speed = speed
+        self.h_speed = 0
+        self.v_speed = 0
+
 
 class EnvObj(GameObj):
     def __init__(self, unit_type, name, hp, coords, zaxis, modifiers):
         super().__init__(unit_type, name, hp, coords,0, zaxis, modifiers)
 
 
-class ProjectileObj(GameObj, DangerousObj):
-    def __init__(self, unit_type, name, dmg, pulse, hp, coords, speed, zaxis, modifiers):
-        GameObj.__init__(self,unit_type, name, hp, coords, speed, zaxis, modifiers)
+class ProjectileObj(GameObj, DangerousObj ,MovableObj): # set projectile to moving obj
+    def __init__(self, unit_type, name, dmg, pulse, hp, coords, speed,zaxis, modifiers):
+        GameObj.__init__(self,unit_type, name, hp, coords, zaxis, modifiers)
         DangerousObj.__init__(self, dmg, pulse)
 
 
@@ -141,4 +152,4 @@ d = eu.check_distance(eu, w)
 eu.is_in_range(d,attack_distance_type=AttackDistance.MELEE)
 
 
-# TO DO when attacking check if units coords are close enough to attack
+# TO DO keep changing the speed thing
