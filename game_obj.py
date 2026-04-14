@@ -29,27 +29,28 @@ class DangerousObj:
         self.pulse = pulse
 
     @staticmethod
-    def attack(attacker, target, attack_type='melee'):
+    def attack(attacker, target, attack_distance_type = AttackDistance.MELEE): # unfinished class method
         target.hp -= attacker.dmg
         print(attacker.name, 'attacking', target.name, 'causing dmg:', attacker.dmg)
 
     @staticmethod
     def check_distance(attacker, target):
-        xd = abs(attacker.x - target.x)
-        yd = abs(attacker.y - target.y)
+        xd = abs(attacker.coords[0] - target.coords[0]) # the coords 0 is the X axis
+        yd = abs(attacker.coords[1] - target.coords[1]) # coords 1 is Y axis
         d = (xd **2 + yd **2)**0.5
         print("distance:", d)
         return d
 
     @staticmethod
-    def is_in_range( distance, attack_type):
+    def is_in_range( distance, attack_distance_type):
         attack_distance = -1
-        if attack_type == AttackDistance.MELEE:
+        if attack_distance_type == AttackDistance.MELEE:
             attack_distance = Settings.melee_distance
-        if attack_type == AttackDistance.SHORT:
+        if attack_distance_type == AttackDistance.SHORT:
             attack_distance = Settings.short_range_distance
-        if attack_type == AttackDistance.LONG:
+        if attack_distance_type == AttackDistance.LONG:
             attack_distance = Settings.long_range_distance
+        print(distance <= attack_distance)
         return distance <= attack_distance
 
 
@@ -126,15 +127,18 @@ class Bullet(ProjectileObj):
         super().__init__(unit_type, name, hp, coords, speed, zaxis, modifiers)
 
 
-eu = EnemyUnit(1,1,'enemy','black punisher',1,2,1,1,1)
+eu = EnemyUnit(1, 1, 'enemy', 'black punisher', 1, [1, 2], 1, 1, 1)
 print(eu)
 
-w = Wall(1, 'wall', 'glory hole', 5, 1,1,1,1)
+w = Wall(1, 'wall', 'glory hole', 5, [1, 3], 1, 1, 1)
 print(w)
 eu.attack(w)
 print(w)
 eu.attack(w)
 print(w)
+
+d = eu.check_distance(eu, w)
+eu.is_in_range(d,attack_distance_type=AttackDistance.MELEE)
 
 
 # TO DO when attacking check if units coords are close enough to attack
