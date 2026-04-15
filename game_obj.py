@@ -16,14 +16,18 @@ class GameObj:
     def y_distance(self, other_point):
         return abs(self.coords[1] - other_point.coords[1])      # y is the 1 of chords
 
+    def place(self, x, y):
+        self.coords[0] = x
+        self.coords[1] = y
+
 
 class Settings:
-    grid_size = 100
+    grid_block_size = 100
     fps = 60
-    base_speed = 1 * grid_size / fps
-    melee_distance = 1 * grid_size
-    short_range_distance = 2 * grid_size
-    long_range_distance = 3 * grid_size
+    base_speed = 1 * grid_block_size / fps
+    melee_distance = 1 * grid_block_size
+    short_range_distance = 2 * grid_block_size
+    long_range_distance = 3 * grid_block_size
 
 
 
@@ -70,15 +74,15 @@ class MovableObj:
         self.h_speed = 0
         self.v_speed = 0
 
-    @staticmethod
-    def move(starting_point, ending_point):
-        x_distance = starting_point.x_distance(ending_point)
-        y_distance = starting_point.y_distance(ending_point)
+    def move(self, x_distance, y_distance):
+        if y_distance == 0:
+            return [self.coords[0] + self.speed, 0] # BUGGGG !!!!!!!! THERES A BUG HERE
+        if x_distance == 0:
+            return [0, self.coords[0] + self.speed]
         ratio = x_distance / y_distance
-        y = (starting_point.speed**2/(ratio+1))**0.5  # explain the formula again
+        y = (self.speed**2/(ratio+1))**0.5  # explain the formula again
         x = ratio * y
         return [x, y]
-
 
 
 class EnvObj(GameObj):
@@ -157,10 +161,10 @@ class Bullet(ProjectileObj):
         super().__init__(unit_type, name, hp, coords, speed, zaxis, modifiers)
 
 
-eu = EnemyUnit(1, 1, 'enemy', 'black punisher', 1, [1, 2], 1, 1, 1)
+eu = EnemyUnit(1, 1, 'enemy', 'black punisher', 1, [0, 0], 60, 1, 1)
 print(eu)
 
-w = Wall(1, 'wall', 'glory hole', 5, [1, 3], 1, 1, 1)
+w = Wall(1, 'wall', 'glory hole', 5, [100, 0], 1, 1, 1)
 print(w)
 eu.attack(w)
 print(w)
@@ -169,6 +173,16 @@ print(w)
 
 d = eu.check_distance(eu, w)
 eu.is_in_range(d,attack_distance_type=AttackDistance.MELEE)
-
+x_distance = eu.x_distance(w)
+y_distance = eu.y_distance(w)
+print(w.coords)
+print(eu.coords)
+x, y = eu.move(x_distance, y_distance)
+eu.place(x, y)
+print(eu.coords)
+eu.is_in_range(d,attack_distance_type=AttackDistance.MELEE)
+print(w.coords)
 
 # TO DO keep changing the speed thing
+# y_distance = starting_point.y_distance(ending_point)
+# x_distance = starting_point.x_distance(ending_point)
