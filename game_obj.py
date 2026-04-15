@@ -65,16 +65,32 @@ class MovableObj:
         self.h_speed = 0
         self.v_speed = 0
 
+    @staticmethod
+    def x_distance(starting_point, ending_point):
+        return abs(starting_point.coords[0] - ending_point.coords[0])  # x is the 0 of chords
 
+
+    @staticmethod
+    def y_distance(starting_point, ending_point):
+        return abs(starting_point.coords[1] - ending_point.coords[1])      # y is the 1 of chords
+
+    def move(self, starting_point, ending_point):
+        x_distance = self.x_distance(starting_point, ending_point)
+        y_distance = self.y_distance(starting_point, ending_point)
+        ratio = x_distance / y_distance
+        y = (starting_point.speed**2/(ratio+1))**0.5  # explain the formula again
+        x = ratio * y
+        return [x, y]
 class EnvObj(GameObj):
     def __init__(self, unit_type, name, hp, coords, zaxis, modifiers):
         super().__init__(unit_type, name, hp, coords,0, zaxis, modifiers)
 
 
-class ProjectileObj(GameObj, DangerousObj ,MovableObj): # set projectile to moving obj
-    def __init__(self, unit_type, name, dmg, pulse, hp, coords, speed,zaxis, modifiers):
+class ProjectileObj(GameObj, DangerousObj, MovableObj):  # set projectile to moving obj
+    def __init__(self, unit_type, name, dmg, pulse, hp, coords, speed, zaxis, modifiers):
         GameObj.__init__(self,unit_type, name, hp, coords, zaxis, modifiers)
         DangerousObj.__init__(self, dmg, pulse)
+        MovableObj.__init__(self, speed)
 
 
 class FriendlyUnit(GameObj):
@@ -83,10 +99,11 @@ class FriendlyUnit(GameObj):
         self.price = price
 
 
-class EnemyUnit(GameObj, DangerousObj):
+class EnemyUnit(GameObj, DangerousObj, MovableObj):
     def __init__(self, dmg, pulse, unit_type, name, hp, coords, speed, zaxis, modifiers):
-        GameObj.__init__(self, unit_type, name, hp, coords, speed, zaxis, modifiers)
+        GameObj.__init__(self, unit_type, name, hp, coords, zaxis, modifiers)
         DangerousObj.__init__(self, dmg, pulse)
+        MovableObj.__init__(self, speed)
 
     def attack(self, target):
         super().attack(self, target)
@@ -107,8 +124,8 @@ class Boss(EnemyUnit):
 
 
 class Mine(EnvObj):
-    def __init__(self, capacity, ttm, name, hp, coords, zaxis, modifiers):
-        super().__init__('Mine', name, hp, coords, 0, zaxis, modifiers)
+    def __init__(self, capacity, ttm, name, hp, coords, zaxis, modifiers):  # ttm "time to mine"
+        super().__init__('Mine', name, hp, coords, zaxis, modifiers)
         self.capacity = capacity
         self.ttm = ttm
 
@@ -118,19 +135,19 @@ class Tree(EnvObj):
         super().__init__('Tree', name, hp, coords, zaxis, modifiers)
 
 
-class Miner(FriendlyUnit):
+class Miner(FriendlyUnit, MovableObj):
     def __init__(self, price, name, hp, coords, speed, zaxis, modifiers):
-        super().__init__(price,'Miner', name, hp, coords, speed, zaxis, modifiers)
+        FriendlyUnit.__init__(self, price, 'Miner', name, hp, coords, zaxis, modifiers)
+        MovableObj.__init__(self, speed)
 
-
-class Wall(FriendlyUnit):
-    def __init__(self, price,unit_type, name, hp, coords, speed, zaxis, modifiers):
-        super().__init__(price, unit_type, name, hp, coords, speed, zaxis, modifiers)
-
+class Wall(FriendlyUnit, MovableObj):
+    def __init__(self, price, unit_type, name, hp, coords,speed, zaxis, modifiers):
+        FriendlyUnit.__init__(self, price, unit_type, name, hp, coords, zaxis, modifiers)
+        MovableObj.__init__(self, speed)
 
 class Grid(FriendlyUnit):
-    def __init__(self, price, unit_type, name, hp, coords, speed, zaxis, modifiers):
-        super().__init__(price, unit_type, name, hp, coords, speed, zaxis, modifiers)
+    def __init__(self, price, unit_type, name, hp, coords, zaxis, modifiers):
+        super().__init__(price, unit_type, name, hp, coords, zaxis, modifiers)
 
 
 class Bullet(ProjectileObj):
