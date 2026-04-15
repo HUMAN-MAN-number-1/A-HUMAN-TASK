@@ -11,6 +11,22 @@ class GameObj:
     def __str__(self):
         return f"unit type:{self.unit_type} name:{self.name} hp:{self.hp} coords:{self.coords} zaxis:{self.zaxis} modifiers:{self.modifiers}"
 
+    @staticmethod
+    def x_distance(starting_point, ending_point):
+        return abs(starting_point.coords[0] - ending_point.coords[0])  # x is the 0 of chords
+
+
+    @staticmethod
+    def y_distance(starting_point, ending_point):
+        return abs(starting_point.coords[1] - ending_point.coords[1])      # y is the 1 of chords
+
+    def move(self, starting_point, ending_point):
+        x_distance = self.x_distance(starting_point, ending_point)
+        y_distance = self.y_distance(starting_point, ending_point)
+        ratio = x_distance / y_distance
+        y = (starting_point.speed**2/(ratio+1))**0.5  # explain the formula again
+        x = ratio * y
+        return [x, y]
 
 class Settings:
     grid_size = 100
@@ -65,22 +81,7 @@ class MovableObj:
         self.h_speed = 0
         self.v_speed = 0
 
-    @staticmethod
-    def x_distance(starting_point, ending_point):
-        return abs(starting_point.coords[0] - ending_point.coords[0])  # x is the 0 of chords
 
-
-    @staticmethod
-    def y_distance(starting_point, ending_point):
-        return abs(starting_point.coords[1] - ending_point.coords[1])      # y is the 1 of chords
-
-    def move(self, starting_point, ending_point):
-        x_distance = self.x_distance(starting_point, ending_point)
-        y_distance = self.y_distance(starting_point, ending_point)
-        ratio = x_distance / y_distance
-        y = (starting_point.speed**2/(ratio+1))**0.5  # explain the formula again
-        x = ratio * y
-        return [x, y]
 class EnvObj(GameObj):
     def __init__(self, unit_type, name, hp, coords, zaxis, modifiers):
         super().__init__(unit_type, name, hp, coords,0, zaxis, modifiers)
