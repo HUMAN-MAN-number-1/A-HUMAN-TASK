@@ -11,10 +11,10 @@ class GameObj:
         return f"unit type:{self.unit_type} name:{self.name} hp:{self.hp} coords:{self.coords} zaxis:{self.zaxis} modifiers:{self.modifiers}"
 
     def x_distance(self, other_point):
-        return abs(self.coords[0] - other_point.coords[0])  # x is the 0 of chords
+        return other_point.coords[0] - self.coords[0]  # x is the 0 of chords
 
     def y_distance(self, other_point):
-        return abs(self.coords[1] - other_point.coords[1])      # y is the 1 of chords
+        return other_point.coords[1] - self.coords[1]   # y is the 1 of chords
 
     def place(self, x, y):
         self.coords[0] = x
@@ -30,7 +30,6 @@ class Settings:
     long_range_distance = 3 * grid_block_size
 
 
-
 class AttackDistance:
     MELEE = 1
     SHORT = 2
@@ -43,14 +42,14 @@ class DangerousObj:
         self.pulse = pulse
 
     @staticmethod
-    def attack(attacker, target, attack_distance_type = AttackDistance.MELEE): # unfinished class method
+    def attack(attacker, target, attack_distance_type=AttackDistance.MELEE):  # unfinished class method
         target.hp -= attacker.dmg
         print(attacker.name, 'attacking', target.name, 'causing dmg:', attacker.dmg)
 
     @staticmethod
     def check_distance(attacker, target):
-        xd = abs(attacker.coords[0] - target.coords[0]) # the coords 0 is the X axis
-        yd = abs(attacker.coords[1] - target.coords[1]) # coords 1 is Y axis
+        xd = abs(attacker.coords[0] - target.coords[0])  # the coords 0 is the X axis
+        yd = abs(attacker.coords[1] - target.coords[1])  # coords 1 is Y axis
         d = (xd **2 + yd **2)**0.5
         print("distance:", d)
         return d
@@ -172,7 +171,7 @@ eu.attack(w)
 print(w)
 
 d = eu.check_distance(eu, w)
-eu.is_in_range(d,attack_distance_type=AttackDistance.MELEE)
+eu.is_in_range(d, attack_distance_type=AttackDistance.MELEE)
 x_distance = eu.x_distance(w)
 y_distance = eu.y_distance(w)
 print(w.coords)
@@ -180,7 +179,7 @@ print(eu.coords)
 x, y = eu.move(x_distance, y_distance)
 eu.place(eu.coords[0]+x, eu.coords[1]+y)
 print(eu.coords)
-eu.is_in_range(d,attack_distance_type=AttackDistance.MELEE)
+eu.is_in_range(d, attack_distance_type=AttackDistance.MELEE)
 print(w.coords)
 
 # TO DO keep changing the speed thing
