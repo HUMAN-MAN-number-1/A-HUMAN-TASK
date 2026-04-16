@@ -89,6 +89,9 @@ class MovableObj:
         self.h_speed = abs_h_speed if x_distance > 0 else -abs_h_speed
         return [self.h_speed, self.v_speed]
 
+    def move(self):
+        self.place(self.coords[0] + self.h_speed, self.coords[1] + self.v_speed)
+
 
 class EnvObj(GameObj):
     def __init__(self, unit_type, name, hp, coords, zaxis, modifiers):
@@ -183,7 +186,7 @@ y_distance = eu.y_distance(w)
 print(w.coords)
 print(eu.coords)
 eu.calc_speed(x_distance, y_distance)
-eu.place(eu.coords[0]+eu.h_speed, eu.coords[1]+eu.v_speed)
+eu.move()
 print(eu.coords)
 eu.is_in_range(d, attack_distance_type=AttackDistance.MELEE)
 print(w.coords)
