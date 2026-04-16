@@ -76,9 +76,9 @@ class MovableObj:
 
     def move(self, x_distance, y_distance):
         if y_distance == 0:
-            return [self.coords[0] + self.speed, 0] # BUGGGG !!!!!!!! THERES A BUG HERE
+            return [self.speed, 0] # BUGGGG !!!!!!!! THERES A BUG HERE
         if x_distance == 0:
-            return [0, self.coords[0] + self.speed]
+            return [0, self.speed]
         ratio = x_distance / y_distance
         y = (self.speed**2/(ratio+1))**0.5  # explain the formula again
         x = ratio * y
@@ -178,7 +178,7 @@ y_distance = eu.y_distance(w)
 print(w.coords)
 print(eu.coords)
 x, y = eu.move(x_distance, y_distance)
-eu.place(x, y)
+eu.place(eu.coords[0]+x, eu.coords[1]+y)
 print(eu.coords)
 eu.is_in_range(d,attack_distance_type=AttackDistance.MELEE)
 print(w.coords)
