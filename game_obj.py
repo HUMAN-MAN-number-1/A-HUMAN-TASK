@@ -164,9 +164,10 @@ class Grid(FriendlyUnit):
         super().__init__(price, unit_type, name, hp, coords, zaxis, modifiers)
 
 
-class Bullet(ProjectileObj):
-    def __init__(self, unit_type, name, hp, coords, speed, zaxis, modifiers):
-        super().__init__(unit_type, name, hp, coords, speed, zaxis, modifiers)
+class Bullet(ProjectileObj): 
+    def __init__(self, unit_type, name, dmg, pulse, hp, coords, speed, zaxis, modifiers):
+
+        super().__init__(unit_type, name, dmg, pulse, hp, coords, speed, zaxis, modifiers)
 
 
 eu = EnemyUnit(1, 1, 'enemy', 'black punisher', 1, [0, 0], 60, 1, 1)
