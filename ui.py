@@ -1,5 +1,6 @@
 import pygame
 import sys
+import game_obj as game_logic
 
 # Grid settings
 ROWS = 9
