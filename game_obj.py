@@ -36,6 +36,24 @@ class AttackDistance:
     LONG = 3
 
 
+class UnitType:
+    TURRET = 1
+    PROJECTILE = 2
+    WALL = 3
+    ENEMY = 4
+    GRID = 5
+    MINE = 6
+    MINER = 7
+    PORTAL = 8
+
+
+class AttackType:
+    PHYSICAL = 1
+    FOOD = 2
+    FIRE = 3
+    ICE = 4
+
+
 class DangerousObj:
     def __init__(self, dmg, pulse):
         self.dmg = dmg
