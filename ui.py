@@ -1,16 +1,11 @@
 import pygame
 import sys
 import game_obj as game_logic
-
-# Grid settings
-ROWS = 9
-COLS = 20
-CELL_SIZE = 100
-FPS = 60
+from game_obj import Settings
 
 # Window size
-WIDTH = COLS * CELL_SIZE
-HEIGHT = ROWS * CELL_SIZE
+WIDTH = Settings.COLS * Settings.GRID_BLOCK_SIZE
+HEIGHT = Settings.ROWS * Settings.GRID_BLOCK_SIZE
 
 # Colors
 BLACK = (0, 0, 0)
@@ -26,13 +21,13 @@ clock = pygame.time.Clock()
 def draw_grid():
     screen.fill(BLACK)
 
-    for row in range(ROWS):
-        for col in range(COLS):
+    for row in range(Settings.ROWS):
+        for col in range(Settings.COLS):
             rect = pygame.Rect(
-                col * CELL_SIZE,
-                row * CELL_SIZE,
-                CELL_SIZE,
-                CELL_SIZE
+                col * Settings.GRID_BLOCK_SIZE,
+                row * Settings.GRID_BLOCK_SIZE,
+                Settings.GRID_BLOCK_SIZE,
+                Settings.GRID_BLOCK_SIZE
             )
             pygame.draw.rect(screen, BLUE, rect, 1)  # 1 = outline thickness
 
@@ -45,7 +40,7 @@ while running:
 
     draw_grid()
     pygame.display.flip()
-    clock.tick(FPS)
+    clock.tick(Settings.FPS)
 
 pygame.quit()
 sys.exit()

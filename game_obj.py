@@ -22,12 +22,14 @@ class GameObj:
 
 
 class Settings:
-    grid_block_size = 100
-    fps = 60
-    base_speed = 1 * grid_block_size / fps
-    melee_distance = 1 * grid_block_size
-    short_range_distance = 2 * grid_block_size
-    long_range_distance = 3 * grid_block_size
+    GRID_BLOCK_SIZE = 100
+    ROWS = 9
+    COLS = 20
+    FPS = 60
+    base_speed = 1 * GRID_BLOCK_SIZE / FPS
+    melee_distance = 1 * GRID_BLOCK_SIZE
+    short_range_distance = 2 * GRID_BLOCK_SIZE
+    long_range_distance = 3 * GRID_BLOCK_SIZE
 
 
 class AttackDistance:
