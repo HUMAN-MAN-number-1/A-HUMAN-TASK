@@ -5,6 +5,7 @@ import sys
 ROWS = 9
 COLS = 20
 CELL_SIZE = 100
+FPS = 60
 
 # Window size
 WIDTH = COLS * CELL_SIZE
@@ -43,7 +44,7 @@ while running:
 
     draw_grid()
     pygame.display.flip()
-    clock.tick(60)
+    clock.tick(FPS)
 
 pygame.quit()
 sys.exit()
