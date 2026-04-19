@@ -3,23 +3,16 @@ import sys
 import game_obj as game_logic
 from game_obj import Settings
 
-# Window size
-WIDTH = Settings.COLS * Settings.GRID_BLOCK_SIZE
-HEIGHT = Settings.ROWS * Settings.GRID_BLOCK_SIZE
-
-# Colors
-BLACK = (0, 0, 0)
-BLUE = (0, 0, 255)
-
 pygame.init()
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
+screen = pygame.display.set_mode((Settings.WIDTH, Settings.HEIGHT))
 pygame.display.set_caption("9x20 Blue Grid")
 
 clock = pygame.time.Clock()
 
 
 def draw_grid():
-    screen.fill(BLACK)
+    screen.fill(Settings.BLACK)
+
 
     for row in range(Settings.ROWS):
         for col in range(Settings.COLS):
@@ -29,7 +22,7 @@ def draw_grid():
                 Settings.GRID_BLOCK_SIZE,
                 Settings.GRID_BLOCK_SIZE
             )
-            pygame.draw.rect(screen, BLUE, rect, 1)  # 1 = outline thickness
+            pygame.draw.rect(screen, Settings.BLUE, rect, 1)
 
 
 running = True
