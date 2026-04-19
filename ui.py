@@ -5,7 +5,7 @@ from game_obj import Settings
 
 pygame.init()
 screen = pygame.display.set_mode((Settings.WIDTH, Settings.HEIGHT))
-pygame.display.set_caption("9x20 Blue Grid")
+pygame.display.set_caption(Settings.TITLE)
 
 clock = pygame.time.Clock()
 
