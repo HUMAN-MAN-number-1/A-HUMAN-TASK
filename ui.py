@@ -23,6 +23,7 @@ def draw_grid():
             )
             pygame.draw.rect(screen, Settings.BLUE, rect, 1)
 
+
 def draw_unit(unit,color):
     rect = pygame.Rect(
         unit.coords[0],  # this coord is the x coord
@@ -32,11 +33,22 @@ def draw_unit(unit,color):
     )
     pygame.draw.rect(screen, color, rect, 1)
 
+
 def draw_all_units():
     for unit in game.friendly_units.values():
         draw_unit(unit, Settings.PASO)
     for unit in game.enemy_units.values():
         draw_unit(unit, Settings.RED)
+
+
+def assign_targets():
+    for unit in game.enemy_units.values():
+        unit.calc_speed(unit.x_distance(game.friendly_units[1]),unit.y_distance(game.friendly_units[1]))
+
+
+def move_all_enemies():
+    for unit in game.enemy_units.values():
+        unit.move()
 
 
 running = True
@@ -46,6 +58,8 @@ while running:
             running = False
     screen.fill(Settings.BLACK)
     draw_grid()
+    assign_targets()
+    move_all_enemies()
     draw_all_units()
     pygame.display.flip()
     clock.tick(Settings.FPS)

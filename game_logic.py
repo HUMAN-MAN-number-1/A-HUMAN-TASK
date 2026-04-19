@@ -106,7 +106,7 @@ class Dangerous:
 
 class Movable:
     def __init__(self, speed):
-        self.speed = speed
+        self.speed = speed * Settings.BASE_SPEED
         self.h_speed = 0
         self.v_speed = 0
 
@@ -121,12 +121,12 @@ class Movable:
         else:
             ratio = abs(x_distance / y_distance)
             abs_v_speed = (self.speed**2/(ratio+1))**0.5
-            abs_h_speed = ratio * y
+            abs_h_speed = ratio * y_distance
         self.v_speed = abs_v_speed if y_distance > 0 else -abs_v_speed
         self.h_speed = abs_h_speed if x_distance > 0 else -abs_h_speed
         return [self.h_speed, self.v_speed]
 
-    def move(self):
+    def move(self):  # NOT FINISHED
         self.place(self.coords[0] + self.h_speed, self.coords[1] + self.v_speed)
 
 
