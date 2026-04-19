@@ -1,7 +1,7 @@
 import pygame
 import sys
-import game_obj as game_logic
-from game_obj import Settings
+import game_logic
+from game_logic import Settings
 
 pygame.init()
 screen = pygame.display.set_mode((Settings.WIDTH, Settings.HEIGHT))
@@ -9,6 +9,7 @@ pygame.display.set_caption(Settings.TITLE)
 
 clock = pygame.time.Clock()
 
+game = game_logic.Game()
 
 def draw_grid():
     screen.fill(Settings.BLACK)
