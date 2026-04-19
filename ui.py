@@ -13,9 +13,6 @@ game = game_logic.Game()
 game.initialize()
 
 def draw_grid():
-    screen.fill(Settings.BLACK)
-
-
     for row in range(Settings.ROWS):
         for col in range(Settings.COLS):
             rect = pygame.Rect(
@@ -27,14 +24,13 @@ def draw_grid():
             pygame.draw.rect(screen, Settings.BLUE, rect, 1)
 
 def draw_unit():
-    screen.fill(Settings.BLACK)
     rect = pygame.Rect(
         game.friendly_units[1].coords[0], # this coord is the x coord
         game.friendly_units[1].coords[1], # this one is the y coord
         Settings.GRID_BLOCK_SIZE, # this one is the width
         Settings.GRID_BLOCK_SIZE # this one is the height
     )
-    pygame.draw.rect(screen, Settings.BLUE, rect, 1)
+    pygame.draw.rect(screen, Settings.PASO, rect, 1)
 
 
 
@@ -43,7 +39,7 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-
+    screen.fill(Settings.BLACK)
     draw_grid()
     draw_unit()
     pygame.display.flip()

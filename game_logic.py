@@ -44,6 +44,7 @@ class Settings:
     TITLE = "CHADMAN SAVES THE UNITED STATES"
     BLACK = (0, 0, 0)
     BLUE = (0, 0, 255)
+    PASO = (124,213,8)
 
 
 class AttackDistance:
