@@ -12,6 +12,7 @@ clock = pygame.time.Clock()
 game = game_logic.Game()
 game.initialize()
 
+
 def draw_grid():
     for row in range(Settings.ROWS):
         for col in range(Settings.COLS):
@@ -43,7 +44,7 @@ def draw_all_units():
 
 def assign_targets():
     for unit in game.enemy_units.values():
-        unit.calc_speed(unit.x_distance(game.friendly_units[1]),unit.y_distance(game.friendly_units[1]))
+        unit.calc_speed(unit.x_distance(game.friendly_units[1]), unit.y_distance(game.friendly_units[1]))
 
 
 def move_all_enemies():
