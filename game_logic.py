@@ -5,6 +5,7 @@ class Game:
 
     def initialize(self):
         self.friendly_units[1] = Wall(1, 'wall', 'glory hole', 5, [100, 0], 1, 1, 1)
+        self.enemy_units[1] = BasicEnemy(1, 'wall', 'glory hole', 5, [100, 0], 1, 1, 1,1)
 
 
 class Unit:
@@ -45,6 +46,7 @@ class Settings:
     BLACK = (0, 0, 0)
     BLUE = (0, 0, 255)
     PASO = (124,213,8)
+    RED = (255, 0, 0)
 
 
 class AttackDistance:

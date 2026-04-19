@@ -23,15 +23,20 @@ def draw_grid():
             )
             pygame.draw.rect(screen, Settings.BLUE, rect, 1)
 
-def draw_unit():
+def draw_unit(unit):
     rect = pygame.Rect(
-        game.friendly_units[1].coords[0], # this coord is the x coord
-        game.friendly_units[1].coords[1], # this one is the y coord
-        Settings.GRID_BLOCK_SIZE, # this one is the width
-        Settings.GRID_BLOCK_SIZE # this one is the height
+        unit.coords[0],  # this coord is the x coord
+        unit.coords[1],  # this one is the y coord
+        Settings.GRID_BLOCK_SIZE,  # this one is the width
+        Settings.GRID_BLOCK_SIZE  # this one is the height
     )
     pygame.draw.rect(screen, Settings.PASO, rect, 1)
 
+def draw_all_units():
+    for unit in game.friendly_units.values():
+        draw_unit(unit)
+    for unit in game.enemy_units.values():
+        draw_unit(unit)
 
 
 running = True
@@ -41,7 +46,7 @@ while running:
             running = False
     screen.fill(Settings.BLACK)
     draw_grid()
-    draw_unit()
+    draw_all_units()
     pygame.display.flip()
     clock.tick(Settings.FPS)
 
