@@ -26,10 +26,10 @@ class Settings:
     ROWS = 9
     COLS = 20
     FPS = 60
-    base_speed = 1 * GRID_BLOCK_SIZE / FPS
-    melee_distance = 1 * GRID_BLOCK_SIZE
-    short_range_distance = 2 * GRID_BLOCK_SIZE
-    long_range_distance = 3 * GRID_BLOCK_SIZE
+    BASE_SPEED = 1 * GRID_BLOCK_SIZE / FPS
+    MELEE_DISTANCE = 1 * GRID_BLOCK_SIZE
+    SHORT_RANGE_DISTANCE = 2 * GRID_BLOCK_SIZE
+    LONG_RANGE_DISTANCE = 3 * GRID_BLOCK_SIZE
 
 
 class AttackDistance:
@@ -75,14 +75,14 @@ class DangerousObj:
         return d
 
     @staticmethod
-    def is_in_range( distance, attack_distance_type):
+    def is_in_range(distance, attack_distance_type):
         attack_distance = -1
         if attack_distance_type == AttackDistance.MELEE:
-            attack_distance = Settings.melee_distance
+            attack_distance = Settings.MELEE_DISTANCE
         if attack_distance_type == AttackDistance.SHORT:
-            attack_distance = Settings.short_range_distance
+            attack_distance = Settings.SHORT_RANGE_DISTANCE
         if attack_distance_type == AttackDistance.LONG:
-            attack_distance = Settings.long_range_distance
+            attack_distance = Settings.LONG_RANGE_DISTANCE
         print(distance <= attack_distance)
         return distance <= attack_distance
 
