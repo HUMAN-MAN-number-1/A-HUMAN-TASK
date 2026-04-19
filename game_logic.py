@@ -1,10 +1,10 @@
 class Game:
     def __init__(self):
-        self.friendly_unit = dict()
-        self.enemy_unit = dict()
+        self.friendly_units = dict()
+        self.enemy_units = dict()
 
     def initialize(self):
-        self.friendly_unit[1] = Wall(1, 'wall', 'glory hole', 5, [100, 0], 1, 1, 1)
+        self.friendly_units[1] = Wall(1, 'wall', 'glory hole', 5, [100, 0], 1, 1, 1)
 
 
 class Unit:
@@ -28,7 +28,6 @@ class Unit:
     def place(self, x, y):
         self.coords[0] = x
         self.coords[1] = y
-
 
 
 class Settings:

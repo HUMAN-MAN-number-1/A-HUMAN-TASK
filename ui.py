@@ -10,6 +10,7 @@ pygame.display.set_caption(Settings.TITLE)
 clock = pygame.time.Clock()
 
 game = game_logic.Game()
+game.initialize()
 
 def draw_grid():
     screen.fill(Settings.BLACK)
@@ -25,6 +26,17 @@ def draw_grid():
             )
             pygame.draw.rect(screen, Settings.BLUE, rect, 1)
 
+def draw_unit():
+    screen.fill(Settings.BLACK)
+    rect = pygame.Rect(
+        game.friendly_units[1].coords[0], # this coord is the x coord
+        game.friendly_units[1].coords[1], # this one is the y coord
+        Settings.GRID_BLOCK_SIZE, # this one is the width
+        Settings.GRID_BLOCK_SIZE # this one is the height
+    )
+    pygame.draw.rect(screen, Settings.BLUE, rect, 1)
+
+
 
 running = True
 while running:
@@ -33,6 +45,7 @@ while running:
             running = False
 
     draw_grid()
+    draw_unit()
     pygame.display.flip()
     clock.tick(Settings.FPS)
 
