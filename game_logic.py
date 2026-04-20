@@ -2,10 +2,12 @@ class Game:
     def __init__(self):
         self.friendly_units = dict()
         self.enemy_units = dict()
+        self.enemy_units_on_screen = dict()
+        self.friendly_units_on_screen = dict()
 
     def initialize(self):
-        self.friendly_units[1] = Wall(1, 'wall', 'glory hole', 5, [500, 600], 1, 1, 1)
-        self.enemy_units[1] = BasicEnemy(1, 'wall', 'glory hole', 5, 1, [100, 200], 1, 1,1)
+        self.friendly_units_on_screen[1] = Wall(1, 'wall', 'glory hole', 5, [500, 600], 1, 1, 1)
+        self.enemy_units_on_screen[1] = BasicEnemy(1, 'wall', 'glory hole', 5, 1, [100, 200], 1, 1,1)
 
 
 class Unit:

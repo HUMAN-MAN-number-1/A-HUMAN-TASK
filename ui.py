@@ -36,19 +36,19 @@ def draw_unit(unit,color):
 
 
 def draw_all_units():
-    for unit in game.friendly_units.values():
+    for unit in game.friendly_units_on_screen.values():
         draw_unit(unit, Settings.PASO)
-    for unit in game.enemy_units.values():
+    for unit in game.enemy_units_on_screen.values():
         draw_unit(unit, Settings.RED)
 
 
 def assign_targets():
     for unit in game.enemy_units.values():
-        unit.calc_speed(unit.x_distance(game.friendly_units[1]),unit.y_distance(game.friendly_units[1]))
+        unit.calc_speed(unit.x_distance(game.friendly_units_on_screen[1]),unit.y_distance(game.friendly_units_on_screen[1]))
 
 
 def move_all_enemies():
-    for unit in game.enemy_units.values():
+    for unit in game.enemy_units_on_screen.values():
         unit.move()
 
 
@@ -61,8 +61,8 @@ while running:
     draw_grid()
     assign_targets()
     move_all_enemies()
-    d = game.enemy_units[1].check_distance(game.enemy_units[1], game.friendly_units[1])
-    print(game.enemy_units[1].coords, game.enemy_units[1].is_in_range(d, attack_distance_type=AttackDistance.SHORT))
+    d = game.enemy_units_on_screen[1].check_distance(game.enemy_units_on_screen[1], game.friendly_units_on_screen[1])
+    print(game.enemy_units_on_screen[1].coords, game.enemy_units_on_screen[1].is_in_range(d, attack_distance_type=AttackDistance.SHORT))
     draw_all_units()
     pygame.display.flip()
     clock.tick(Settings.FPS)
