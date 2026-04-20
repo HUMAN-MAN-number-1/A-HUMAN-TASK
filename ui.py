@@ -2,6 +2,7 @@ import pygame
 import sys
 import game_logic
 from game_logic import Settings
+from game_logic import AttackDistance
 
 pygame.init()
 screen = pygame.display.set_mode((Settings.WIDTH, Settings.HEIGHT))
@@ -11,7 +12,6 @@ clock = pygame.time.Clock()
 
 game = game_logic.Game()
 game.initialize()
-
 
 def draw_grid():
     for row in range(Settings.ROWS):
@@ -44,7 +44,7 @@ def draw_all_units():
 
 def assign_targets():
     for unit in game.enemy_units.values():
-        unit.calc_speed(unit.x_distance(game.friendly_units[1]), unit.y_distance(game.friendly_units[1]))
+        unit.calc_speed(unit.x_distance(game.friendly_units[1]),unit.y_distance(game.friendly_units[1]))
 
 
 def move_all_enemies():
@@ -61,6 +61,8 @@ while running:
     draw_grid()
     assign_targets()
     move_all_enemies()
+    d = game.enemy_units[1].check_distance(game.enemy_units[1], game.friendly_units[1])
+    print(game.enemy_units[1].coords, game.enemy_units[1].is_in_range(d, attack_distance_type=AttackDistance.SHORT))
     draw_all_units()
     pygame.display.flip()
     clock.tick(Settings.FPS)

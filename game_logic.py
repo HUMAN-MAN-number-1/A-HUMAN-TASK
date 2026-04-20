@@ -4,8 +4,8 @@ class Game:
         self.enemy_units = dict()
 
     def initialize(self):
-        self.friendly_units[1] = Wall(1, 'wall', 'glory hole', 5, [100, 0], 1, 1, 1)
-        self.enemy_units[1] = BasicEnemy(1, 'wall', 'glory hole', 5, 1, [200, 500], 1, 1,1)
+        self.friendly_units[1] = Wall(1, 'wall', 'glory hole', 5, [500, 600], 1, 1, 1)
+        self.enemy_units[1] = BasicEnemy(1, 'wall', 'glory hole', 5, 1, [100, 200], 1, 1,1)
 
 
 class Unit:
@@ -50,9 +50,9 @@ class Settings:
 
 
 class AttackDistance:
-    MELEE = 1
-    SHORT = 2
-    LONG = 3
+    MELEE = 1 * Settings.GRID_BLOCK_SIZE
+    SHORT = 2 * Settings.GRID_BLOCK_SIZE
+    LONG = 3 * Settings.GRID_BLOCK_SIZE
 
 
 class UnitType:
