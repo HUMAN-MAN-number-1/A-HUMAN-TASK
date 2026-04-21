@@ -3,6 +3,7 @@ import sys
 import game_logic
 from game_logic import Settings
 from game_logic import AttackDistance
+from game_logic import level
 
 pygame.init()
 screen = pygame.display.set_mode((Settings.WIDTH, Settings.HEIGHT))
