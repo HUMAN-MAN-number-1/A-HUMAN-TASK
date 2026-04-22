@@ -1,25 +1,60 @@
 class Settings:
-    GRID_BLOCK_SIZE = 100
-    ROWS = 9
-    COLS = 20
-    FPS = 60
-    BASE_SPEED = 1 * GRID_BLOCK_SIZE / FPS
-    MELEE_DISTANCE = 1 * GRID_BLOCK_SIZE
-    SHORT_RANGE_DISTANCE = 2 * GRID_BLOCK_SIZE
-    LONG_RANGE_DISTANCE = 3 * GRID_BLOCK_SIZE
-    WIDTH = COLS * GRID_BLOCK_SIZE
-    HEIGHT = ROWS * GRID_BLOCK_SIZE
-    TITLE = "CHADMAN SAVES THE UNITED STATES"
-    BLACK = (0, 0, 0)
-    BLUE = (0, 0, 255)
-    PASO = (124,213,8)
-    RED = (255, 0, 0)
 
+    @classmethod
+    def initialize(cls):
+        with open('settings.txt', 'r') as f:
+            settings_string = f.read().split('\n')
+        settings = dict()
+        for settings_row in settings_string:
+            setting, value = settings_row.split('=')
+            if value.isnumeric():
+                settings[setting] = int(value)
+            elif setting == 'TITLE':
+                settings[setting] = value
+            elif len(setting) >= 5:
+                if setting[:5] == 'COLOR':
+                    red, green, blue = value.split(',')
+                    red = int(red)
+                    green = int(green)
+                    blue = int(blue)
+                    settings[setting] = (red, green, blue)
+        for setting, value in settings.items():
+            if setting == 'GRID_BLOCK_SIZE':
+                cls.GRID_BLOCK_SIZE = value
+            elif setting == 'ROWS':
+                cls.ROWS = value
+            elif setting == 'COLS':
+                cls.COLS = value
+            elif setting == 'FPS':
+                cls.FPS = value
+            elif setting == 'BASE_SPEED':
+                cls.BASE_SPEED = value * cls.GRID_BLOCK_SIZE / cls.FPS
+            elif setting == 'MELEE_DISTANCE':
+                cls.MELEE_DISTANCE = value * cls.GRID_BLOCK_SIZE
+            elif setting == 'SHORT_RANGE_DISTANCE':
+                cls.SHORT_RANGE_DISTANCE = value * cls.GRID_BLOCK_SIZE
+            elif setting == 'LONG_RANGE_DISTANCE':
+                cls.LONG_RANGE_DISTANCE = value * cls.GRID_BLOCK_SIZE
+            elif setting == 'TITLE':
+                cls.TITLE = value
+            elif setting == 'COLOR_BLACK':
+                cls.COLOR_BLACK = value
+            elif setting == 'COLOR_BLUE':
+                cls.COLOR_BLUE = value
+            elif setting == 'COLOR_PASO':
+                cls.COLOR_PASO = value
+            elif setting == 'COLOR_RED':
+                cls.COLOR_RED = value
+        cls.WIDTH = cls.COLS * cls.GRID_BLOCK_SIZE
+        cls.HEIGHT = cls.ROWS * cls.GRID_BLOCK_SIZE
 
 class AttackDistance:
-    MELEE = 1 * Settings.GRID_BLOCK_SIZE
-    SHORT = 2 * Settings.GRID_BLOCK_SIZE
-    LONG = 3 * Settings.GRID_BLOCK_SIZE
+
+    @classmethod
+    def initialize(cls):
+        cls.MELEE = Settings.MELEE_DISTANCE * Settings.GRID_BLOCK_SIZE
+        cls.SHORT = Settings.SHORT_RANGE_DISTANCE * Settings.GRID_BLOCK_SIZE
+        cls.LONG = Settings.LONG_RANGE_DISTANCE * Settings.GRID_BLOCK_SIZE
 
 
 class UnitType:
@@ -38,3 +73,7 @@ class AttackType:
     FOOD = 2
     FIRE = 3
     ICE = 4
+
+
+Settings.initialize()
+AttackDistance.initialize()

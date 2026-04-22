@@ -1,3 +1,6 @@
+from settings import Settings
+
+
 class Level:
     def __init__(self, number, name):
         self.number = number
@@ -16,7 +19,7 @@ class Level:
             self.enemies[wave_number] = ''
         for wave_index in range(self.waves):
             wave_number = wave_index + 1
-            for row_index in range(9):  # HARD CODED FOR 9
+            for row_index in range(Settings.ROWS):  # HARD CODED FOR 9
                 if wave_index < len(all_rows[row_index]):
                     self.enemies[wave_number] += all_rows[row_index][wave_index]
                 else:

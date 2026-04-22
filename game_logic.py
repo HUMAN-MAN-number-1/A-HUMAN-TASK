@@ -1,5 +1,5 @@
 from level import Level
-
+from units import Wall, BasicEnemy
 
 class Game:
     def __init__(self):
@@ -13,5 +13,3 @@ class Game:
         level1.initialize()
         self.friendly_units_on_screen[1] = Wall(1, 'wall', 'glory hole', 5, [500, 600], 1, 1, 1)
         self.enemy_units_on_screen[1] = BasicEnemy(1, 'wall', 'glory hole', 5, 1, [100, 200], 1, 1,1)
-
-

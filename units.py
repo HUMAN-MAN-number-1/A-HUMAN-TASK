@@ -1,3 +1,6 @@
+from settings import Settings
+from settings import AttackDistance
+
 class Unit:
     def __init__(self, unit_type, name, hp, coords, zaxis, modifiers):
         self.unit_type = unit_type

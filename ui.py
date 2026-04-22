@@ -1,9 +1,9 @@
 import pygame
 import sys
 import game_logic
-from game_logic import Settings
-from game_logic import AttackDistance
-from game_logic import level
+from settings import Settings
+from settings import AttackDistance
+from level import Level
 
 pygame.init()
 screen = pygame.display.set_mode((Settings.WIDTH, Settings.HEIGHT))
@@ -23,7 +23,7 @@ def draw_grid():
                 Settings.GRID_BLOCK_SIZE,
                 Settings.GRID_BLOCK_SIZE
             )
-            pygame.draw.rect(screen, Settings.BLUE, rect, 1)
+            pygame.draw.rect(screen, Settings.COLOR_BLUE, rect, 1)
 
 
 def draw_unit(unit,color):
@@ -38,13 +38,13 @@ def draw_unit(unit,color):
 
 def draw_all_units():
     for unit in game.friendly_units_on_screen.values():
-        draw_unit(unit, Settings.PASO)
+        draw_unit(unit, Settings.COLOR_PASO)
     for unit in game.enemy_units_on_screen.values():
-        draw_unit(unit, Settings.RED)
+        draw_unit(unit, Settings.COLOR_RED)
 
 
 def assign_targets():
-    for unit in game.enemy_units.values():
+    for unit in game.enemy_units_on_screen.values():
         unit.calc_speed(unit.x_distance(game.friendly_units_on_screen[1]),unit.y_distance(game.friendly_units_on_screen[1]))
 
 
@@ -58,7 +58,7 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-    screen.fill(Settings.BLACK)
+    screen.fill(Settings.COLOR_BLACK)
     draw_grid()
     assign_targets()
     move_all_enemies()
