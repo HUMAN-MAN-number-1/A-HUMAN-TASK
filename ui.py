@@ -46,7 +46,7 @@ def draw_all_units():
 def assign_targets():
     for unit in game.enemy_units_on_screen:
         unit.calc_speed(unit.x_distance(game.friendly_units_on_screen[0]),unit.y_distance(game.friendly_units_on_screen[0]))
-
+    
 
 def move_all_enemies():
     for unit in game.enemy_units_on_screen:

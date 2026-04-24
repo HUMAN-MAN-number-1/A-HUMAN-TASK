@@ -75,6 +75,10 @@ class Movable:
             ratio = abs(x_distance / y_distance)
             abs_v_speed = (self.speed**2/(ratio+1))**0.5
             abs_h_speed = ratio * abs_v_speed
+            abs_d_speed = (abs_h_speed**2 + abs_v_speed**2)**0.5
+            x = self.speed/abs_d_speed
+            abs_v_speed *= x
+            abs_h_speed *= x
         self.v_speed = abs_v_speed if y_distance > 0 else -abs_v_speed
         self.h_speed = abs_h_speed if x_distance > 0 else -abs_h_speed
         return [self.h_speed, self.v_speed]
