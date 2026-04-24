@@ -9,8 +9,9 @@ class Settings:
             setting, value = settings_row.split('=')
             if value.isnumeric():
                 settings[setting] = int(value)
-            elif setting == 'TITLE':
+            elif setting in {'TITLE', 'BASIC_ENEMY_UNIT'}:
                 settings[setting] = value
+
             elif len(setting) >= 5:
                 if setting[:5] == 'COLOR':
                     red, green, blue = value.split(',')
@@ -45,6 +46,8 @@ class Settings:
                 cls.COLOR_PASO = value
             elif setting == 'COLOR_RED':
                 cls.COLOR_RED = value
+            elif setting == "BASIC_ENEMY_UNIT":
+                cls.BASIC_ENEMY_UNIT = value
         cls.WIDTH = cls.COLS * cls.GRID_BLOCK_SIZE
         cls.HEIGHT = cls.ROWS * cls.GRID_BLOCK_SIZE
 

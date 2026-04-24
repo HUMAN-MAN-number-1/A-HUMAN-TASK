@@ -1,11 +1,12 @@
 from settings import Settings
-
+import units
 
 class Level:
     def __init__(self, number, name):
         self.number = number
         self.name = name
         self.waves = 0
+        self.enemies_dbug = dict()
         self.enemies = dict()
 
     def initialize(self):
@@ -16,17 +17,22 @@ class Level:
             if row_length > self.waves:
                 self.waves = row_length
         for wave_number in range(1, self.waves + 1):
-            self.enemies[wave_number] = ''
+            self.enemies_dbug[wave_number] = ''
+            self.enemies[wave_number] = []
         for wave_index in range(self.waves):
             wave_number = wave_index + 1
-            for row_index in range(Settings.ROWS):  # HARD CODED FOR 9
+            for row_index in range(Settings.ROWS):
                 if wave_index < len(all_rows[row_index]):
-                    self.enemies[wave_number] += all_rows[row_index][wave_index]
+                    self.enemies_dbug[wave_number] += all_rows[row_index][wave_index]
+                    if all_rows[row_index][wave_index] == Settings.BASIC_ENEMY_UNIT:
+                        enemy = units.BasicEnemy(1, 1, 'enemy', 'black punisher', 1, [0, 0], 60, 1, 1)
+
                 else:
-                    self.enemies[wave_number] += ' '
+                    self.enemies_dbug[wave_number] += ' '
 
 
 if __name__ == '__main__':
     level1 = Level(1, 'test')
     level1.initialize()
-    print(level1.enemies)
+    print(level1.enemies_dbug)
+
