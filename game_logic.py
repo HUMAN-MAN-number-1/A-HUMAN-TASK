@@ -20,6 +20,6 @@ class Game:
 
     def initialize_the_wave(self,wave_number):
         for wave, alist in self.level.enemies.items():  # this needs to be mutable instaed of wave 1 this also needs to turn into an function
-            if wave == 1:
+            if wave == wave_number:
                 for enemy in alist:
                     self.enemy_units_on_screen.append(enemy)
