@@ -76,5 +76,6 @@ while running:
     if current_frame == Settings.FPS:
         current_wave += 1
         current_frame = 0
+        game.initialize_the_wave(current_wave)
 pygame.quit()
 sys.exit()
