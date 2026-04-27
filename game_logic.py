@@ -15,7 +15,7 @@ class Game:
         self.friendly_units_on_screen.append(Wall(1, 'wall', 'glory hole', 5, [500, 600], 1, 1, 1))  # change this to read from settings
         # self.enemy_units_on_screen[1] = BasicEnemy(1, 'wall', 'glory hole', 5, 1, [100, 200], 1, 1,1)  # change this to coded
 
-        for wave, alist in level.enemies.items():
+        for wave, alist in level.enemies.items():  # this needs to be mutable instaed of wave 1 this also needs to turn into an function
             if wave == 1:
                 for enemy in alist:
                     self.enemy_units_on_screen.append(enemy)

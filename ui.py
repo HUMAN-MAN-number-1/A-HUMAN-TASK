@@ -5,6 +5,10 @@ from settings import Settings
 from settings import AttackDistance
 from level import Level
 
+
+
+# you need to figure out tomorow how to initialze the next wave not just the first calc if all enemys are gone then spwan the new wave and put it on timer
+
 pygame.init()
 screen = pygame.display.set_mode((Settings.WIDTH, Settings.HEIGHT))
 pygame.display.set_caption(Settings.TITLE)
@@ -46,13 +50,14 @@ def draw_all_units():
 def assign_targets():
     for unit in game.enemy_units_on_screen:
         unit.calc_speed(unit.x_distance(game.friendly_units_on_screen[0]),unit.y_distance(game.friendly_units_on_screen[0]))
-    
+
 
 def move_all_enemies():
     for unit in game.enemy_units_on_screen:
         unit.move()
 
-
+current_wave = 1
+current_frame = 0
 running = True
 while running:
     for event in pygame.event.get():
@@ -67,6 +72,9 @@ while running:
     draw_all_units()
     pygame.display.flip()
     clock.tick(Settings.FPS)
-
+    current_frame += 1
+    if current_frame == Settings.FPS:
+        current_wave += 1
+        current_frame = 0
 pygame.quit()
 sys.exit()
