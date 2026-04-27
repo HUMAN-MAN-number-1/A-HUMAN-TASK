@@ -81,4 +81,4 @@ while running:
 pygame.quit()
 sys.exit()
 
-# load basic sprits 
+# load basic sprits

@@ -31,13 +31,13 @@ class Level:
                     self.enemies_dbug[wave_number] += ' '
 
 
-if __name__ == '__main__':
-    level1 = Level(1, 'test')
-    level1.initialize()
-    for wave,alist in level1.enemies.items():
-        if wave == 1:
-            print(wave)
-            for enemy in alist:
-                print(enemy.coords)
-    print(level1.enemies_dbug)
+# if __name__ == '__main__':
+#     level1 = Level(1, 'test')
+#     level1.initialize()
+#     for wave,alist in level1.enemies.items():
+#         if wave == 1:
+#             print(wave)
+#             for enemy in alist:
+#                 print(enemy.coords)
+#     print(level1.enemies_dbug)
 
